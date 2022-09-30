@@ -4,9 +4,14 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { cartContext } from '../../context/Context';
 import {Link} from "react-router-dom";
+import "./Cart.css"
 
 const Cart = () => {
   let [total, setTotal] = React.useState();
+
+   const [inputBox,setInputBox]=React.useState(0);
+
+   const[count,setCount]=React.useState([])
 
   const { cart, setCart } = React.useContext(cartContext);
   let countTotal = () => {
@@ -14,11 +19,29 @@ const Cart = () => {
 
   }
 
+  console.log(cart)
+  const handleInc=(prodId)=>{
+    
+    }
+
+  // const handleInc=(prodId)=>{
+
+    
+  //     count.map((item)=>prodId===item.id ? {...item,qty:qty+1}:item.id
+  //     )
+    
+  //   }
+
+  const handleDec=()=>{
+    setInputBox(inputBox-1)
+  }
+
   React.useEffect(() => {
     countTotal()
-  }, [cart]);
+    setCount(count)
+  }, [cart,count]);
   return (
-    <>
+    <div className='cart-div'>
     {
       cart.length===0 ?
        (<div className='m-5'>
@@ -40,13 +63,22 @@ const Cart = () => {
                       <div className="m-5">
                       <Row>
                       <Col sm={3}>
-                      <img className='img' style={{width:"150px", height:"100px"}} src={`${prod.image}`} alt="no-image" />
+                      <img className='img' style={{width:"150px", height:"100px"}} src={`${prod.thumbnail}`} alt="no-image" />
                       </Col>
                       <Col sm={2}>
                       <span>{prod.title}</span>
                       </Col>
                       <Col sm={2}>
                       <span>₹ {prod.price}</span>
+                      </Col>
+                      <Col sm={2}>
+                        <span className='incrementItem' onClick={()=>{handleInc(prod.id)}}>+</span> 
+                        
+                        <div className='itemCount'>
+                        {/* {prod.qty} */}
+                        </div>
+                        
+                         <span className='decrementItem' onClick={handleDec}>-</span>
                       </Col>
                       <Col sm={2}>
                       <button className='remove btn btn-primary' onClick={() => {
@@ -70,7 +102,7 @@ const Cart = () => {
   
       </Container>)
     }
-    </>
+    </div>
 
   )
 }

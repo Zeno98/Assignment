@@ -12,10 +12,18 @@ import Badge from "react-bootstrap/Badge"
 
 const Header = () => {
 
-    const{cart,setCart}=React.useContext(cartContext)
+    const{cart,setCart,search,setSearch}=React.useContext(cartContext);
+
+  let handleSearch=(e)=>{
+    setSearch(e.target.value);
+    // console.log(search);
+  }
+
+
+
   return (
-    <Navbar bg="dark" variant="dark">
-    <Container>
+    <Navbar bg="dark" variant="dark" style={{position:"fixed",width:"100%",marginBottom:"5rem"}}>
+    <Container style={{position:"sticky"}}>
         <Link to="/">
         <Navbar.Brand href="#home">E-Commerce</Navbar.Brand>
         </Link>
@@ -24,6 +32,8 @@ const Header = () => {
         <FormControl
         placeholder='search products'
         className='m-auto'
+        value={search}
+        onChange={handleSearch}
         style={{width:500}}
         />
       </Navbar.Text>
